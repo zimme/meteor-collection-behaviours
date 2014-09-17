@@ -32,7 +32,9 @@ behaviour = (options = {}) ->
     if createdBy
       definition[createdBy] =
         autoValue: ->
-          unless @isFromTrustedCode
+          if @isFromTrustedCode and not @isSet
+            '0'
+          else
             if @isInsert
               @userId
             else if @isUpsert
@@ -40,7 +42,8 @@ behaviour = (options = {}) ->
             else
               @unset()
 
-        regEx: SimpleSchema.RegEx.Id
+        optional: true
+        regEx: new RegExp "(" + SimpleSchema.RegEx.Id.source + ")|^0$"
         type: String
 
     if updatedAt
@@ -58,7 +61,9 @@ behaviour = (options = {}) ->
     if updatedBy
       definition[updatedBy] =
         autoValue: ->
-          unless @isFromTrustedCode
+          if @isFromTrustedCode and @isUpdate and not @isSet
+            '0'
+          else
             if @isUpdate
               @userId
             else
@@ -66,28 +71,30 @@ behaviour = (options = {}) ->
 
         denyInsert: true
         optional: true
-        regEx: SimpleSchema.RegEx.Id
+        regEx: new RegExp "(" + SimpleSchema.RegEx.Id.source + ")|^0$"
         type: String
 
     @attachSchema new SimpleSchema definition
 
   else
-    @before.insert (userId, doc) ->
-      if createdAt
-        doc[createdAt] = new Date
-      if createdBy
-        doc[createdBy] = userId
+    if Meteor.isServer
+      @before.insert (userId, doc) ->
+        if createdAt
+          doc[createdAt] = new Date
+        if createdBy and not doc.createdBy?
+          userId ?= '0'
+          doc[createdBy] = userId
 
-    @before.update (userId, doc, fieldNames, modifier, options) ->
-      $set = modifier.$set
+      @before.update (userId, doc, fieldNames, modifier, options) ->
+        $set = modifier.$set
 
-      unless $set
-        $set = {}
+        unless $set
+          $set = {}
 
-      if updatedAt
-        $set[updatedAt] = new Date
-
-      if updatedBy
-        $set[updatedBy] = userId
+        if updatedAt
+          $set[updatedAt] = new Date
+        if updatedBy and not doc.updatedBy?
+          userId ?= '0'
+          $set[updatedBy] = userId
 
 CollectionBehaviour.define 'timestampable', behaviour

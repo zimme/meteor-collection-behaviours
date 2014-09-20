@@ -1,5 +1,5 @@
 # Collection-behaviour
 
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/zimme/collection-behaviour)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/zimme/meteor-collection-behaviour_medium=badge&utm_campaign=pr-badge)
 
 Define and attach behaviours for collection

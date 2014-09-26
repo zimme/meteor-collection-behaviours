@@ -19,17 +19,23 @@ behaviour = (options = {}) ->
     definition = {}
 
     definition[removed] =
+      autoform:
+        omit: true
       optional: true
       type: Boolean
 
     if removedAt
       definition[removedAt] =
+        autoform:
+          omit: true
         denyInsert: true
         optional: true
         type: Date
 
     if removedBy
       definition[removedBy] =
+        autoform:
+          omit: true
         denyInsert: true
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
@@ -37,12 +43,16 @@ behaviour = (options = {}) ->
 
     if restoredAt
       definition[restoredAt] =
+        autoform:
+          omit: true
         denyInsert: true
         optional: true
         type: Date
 
     if restoredBy
       definition[restoredBy] =
+        autoform:
+          omit: true
         denyInsert: true
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"

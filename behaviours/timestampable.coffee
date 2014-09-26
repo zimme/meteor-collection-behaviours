@@ -19,23 +19,31 @@ behaviour = (options = {}) ->
 
     if createdAt
       definition[createdAt] =
+        autoform:
+          omit: true
         optional: true
         type: Date
 
     if createdBy
       definition[createdBy] =
+        autoform:
+          omit: true
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
         type: String
 
     if updatedAt
       definition[updatedAt] =
+        autoform:
+          omit: true
         denyInsert: true
         optional: true
         type: Date
 
     if updatedBy
       definition[updatedBy] =
+        autoform:
+          omit: true
         denyInsert: true
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"

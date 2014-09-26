@@ -10,7 +10,7 @@ share.attach = attach = (behaviour, args...) ->
   else
     console.warn 'Behaviour not found'
 
-class CollectionBehaviour
+class CollectionBehaviours
 
   @attach: (collection, args...) ->
     attach.apply collection, args

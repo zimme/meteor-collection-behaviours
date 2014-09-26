@@ -27,7 +27,8 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
-    'behaviours/timestampable.coffee'
+    'behaviours/timestampable.coffee',
+    'behaviours/softremovable.coffee'
   ]);
 
   api.export('CollectionBehaviour');

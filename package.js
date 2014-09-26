@@ -17,6 +17,7 @@ Package.onUse(function(api) {
   api.use('matb33:collection-hooks@0.7.6');
 
   api.use([
+    'aldeed:autoform@2.0.0',
     'aldeed:collection2@2.0.0',
     'aldeed:simple-schema@1.0.3'
   ], ['client', 'server'], {weak: true});

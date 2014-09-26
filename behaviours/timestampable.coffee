@@ -1,3 +1,4 @@
+af = Package['aldeed:autoform']
 c2 = Package['aldeed:collection2']
 ss = Package['aldeed:simple-schema']
 
@@ -12,42 +13,56 @@ behaviour = (options = {}) ->
   {clientOnly, createdAt, createdBy, updatedAt, updatedBy} =
     _.defaults options, defaults
 
-  if c2? and ss?
+  if ss?
     SimpleSchema = ss.SimpleSchema
+
+    afDefinition = autoform:
+      omit: true
+
+    addAfDefs = (definition) ->
+      _.extend definition, afDefinition
+
+    c2Definition =
+      denyInsert: true
+
+    addC2Defs = (definition) ->
+      _.extend definition, c2Definition
 
     definition = {}
 
     if createdAt
-      definition[createdAt] =
-        autoform:
-          omit: true
+      def = definition[createdAt] =
         optional: true
         type: Date
+
+      addAfDefs def if af?
 
     if createdBy
-      definition[createdBy] =
-        autoform:
-          omit: true
+      def = definition[createdBy] =
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
         type: String
 
+      addAfDefs def if af?
+
     if updatedAt
-      definition[updatedAt] =
-        autoform:
-          omit: true
-        denyInsert: true
+      def = definition[updatedAt] =
         optional: true
         type: Date
 
+      addAfDefs def if af?
+
+      addC2Defs def if c2?
+
     if updatedBy
-      definition[updatedBy] =
-        autoform:
-          omit: true
-        denyInsert: true
+      def = definition[updatedBy] =
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
         type: String
+
+      addAfDefs def if af?
+
+      addC2Defs def if c2?
 
     @attachSchema new SimpleSchema definition
 

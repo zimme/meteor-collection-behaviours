@@ -97,4 +97,4 @@ behaviour = (options = {}) ->
           userId ?= '0'
           $set[updatedBy] = userId
 
-CollectionBehaviour.define 'timestampable', behaviour
+CollectionBehaviours.define 'timestampable', behaviour

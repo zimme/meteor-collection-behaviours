@@ -31,6 +31,5 @@ Package.onUse(function(api) {
     'behaviours/softremovable.coffee'
   ]);
 
-  api.export('CollectionBehaviour');
   api.export('CollectionBehaviours');
 });

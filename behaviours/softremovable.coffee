@@ -1,3 +1,4 @@
+af = Package['aldeed:autoform']
 c2 = Package['aldeed:collection2']
 ss = Package['aldeed:simple-schema']
 
@@ -13,50 +14,66 @@ behaviour = (options = {}) ->
   {removed, removedAt, removedBy, restoredAt, restoredBy} =
     _.defaults options, defaults
 
-  if c2? and ss?
+  if ss?
     SimpleSchema = ss.SimpleSchema
+
+    afDefinition = autoform:
+      omit: true
+
+    addAfDef = (definition) ->
+      _.extend definition, afDefinition
+
+    c2Definition =
+      denyInsert: true
+
+    addC2Def = (definition) ->
+      _.extend definition, c2Definition
 
     definition = {}
 
-    definition[removed] =
-      autoform:
-        omit: true
+    def = definition[removed] =
       optional: true
       type: Boolean
 
+    addAfDef def if af?
+
     if removedAt
-      definition[removedAt] =
-        autoform:
-          omit: true
-        denyInsert: true
+      def = definition[removedAt] =
         optional: true
         type: Date
+
+      addC2Def def if c2?
+
+      addAfDef def if af?
 
     if removedBy
-      definition[removedBy] =
-        autoform:
-          omit: true
-        denyInsert: true
+      def = definition[removedBy] =
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
         type: String
 
+      addC2Def def if c2?
+
+      addAfDef def if af?
+
     if restoredAt
-      definition[restoredAt] =
-        autoform:
-          omit: true
-        denyInsert: true
+      def = definition[restoredAt] =
         optional: true
         type: Date
 
+      addAfDef def if af?
+
+      addC2Def def if c2?
+
     if restoredBy
-      definition[restoredBy] =
-        autoform:
-          omit: true
-        denyInsert: true
+      def = definition[restoredBy] =
         optional: true
         regEx: new RegExp "(#{SimpleSchema.RegEx.Id.source})|^0$"
         type: String
+
+      addAfDef def if af?
+
+      addC2Def def if c2?
 
     @attachSchema new SimpleSchema definition
 

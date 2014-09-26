@@ -10,6 +10,11 @@ share.attach = attach = (behaviour, args...) ->
   else
     console.warn 'Behaviour not found'
 
+  return
+
+share.detach = detach = (behaviour, args...) ->
+  console.log 'CollectionBehaviours: Not implemented yet.'
+
 class CollectionBehaviours
 
   @attach: (collection, args...) ->
@@ -20,3 +25,6 @@ class CollectionBehaviours
       console.warn 'Behaviour already defined, use replace option to override'
     else
       behaviours[name] = behaviour
+
+  @detach: (collection, args...) ->
+    detach.apply collection, args

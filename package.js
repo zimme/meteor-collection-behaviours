@@ -27,10 +27,5 @@ Package.onUse(function(api) {
     'mongo.coffee'
   ]);
 
-  api.addFiles([
-    'behaviours/timestampable.coffee',
-    'behaviours/softremovable.coffee'
-  ]);
-
   api.export('CollectionBehaviours');
 });

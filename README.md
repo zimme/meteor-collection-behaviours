@@ -8,9 +8,11 @@ Define and attach behaviours for collection
 ## Available behaviours
 
 ### Soft removable
+
 Atmosphere: https://atmospherejs.com/zimme/collection-softremovable  
 Github: https://github.com/zimme/meteor-collection-softremovable
 
 ### Timestampable
+
 Atmosphere: https://atmospherejs.com/zimme/collection-timestampable  
 Github: https://github.com/zimme/meteor-collection-timestampable

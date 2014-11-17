@@ -20,5 +20,6 @@ class CollectionBehaviours
   @define: (name, behaviour, options) ->
     if name of behaviours and not options?.replace
       console.warn 'Behaviour already defined, use replace option to override'
+
     else
       behaviours[name] = behaviour

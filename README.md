@@ -5,6 +5,12 @@
 
 Define and attach behaviours on collections.
 
+I used
+[collection-behaviours](https://github.com/Sewdn/meteor-collection-behaviours)
+as inspiration and did a coffeescript rewrite with only the base functionality.
+The different behaviours are separated into their own packages to make it
+easier to find them on atmopspherejs.com and "meteor search".
+
 ## Available behaviours
 
 ### Soft removable

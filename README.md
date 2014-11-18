@@ -22,3 +22,33 @@ Github: https://github.com/zimme/meteor-collection-softremovable
 
 Atmosphere: https://atmospherejs.com/zimme/collection-timestampable  
 Github: https://github.com/zimme/meteor-collection-timestampable
+
+## Usage
+
+```js
+// Define a behaviour
+CollectionBehaviours.define('behaviourName', function(options) {
+  collection = this.collection;
+  defaultOptions = {
+    randomOption: "I'm a default value"
+  };
+  options = _.defaults(options, this.options, defaultOptions);
+
+  ... behaviour logic ...
+});
+
+// Configure behaviour globally
+CollectionBehaviours.configure('behaviourName', {
+  randomOption: "I'm a global value"
+});
+
+// Attach behaviour with optional options
+CollectionBehaviours.attach(Meteor.users, 'behaviourName', {
+  randomOption: "I'm a local value"
+});
+
+// Attach behaviour with optional options
+Meteor.users.attachBehaviour('behaviourName', {
+  randomOption: "I'm a local value"
+});
+```

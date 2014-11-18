@@ -1,15 +1,15 @@
 behaviours = {}
-options = {}
+behaviourOptions = {}
 
 share.attach = attach = (behaviour, args...) ->
   if _.isString behaviour
+    options = behaviourOptions[behaviour]
     behaviour = behaviours[behaviour]
-    opts = options[behaviour]
 
   if _.isFunction behaviour
     context =
       collection: @
-      options: opts
+      options: options
 
     behaviour.apply context, args
 
@@ -25,7 +25,7 @@ class CollectionBehaviours
 
   @configure: (name, options) ->
     if name of behaviours
-      options[name] = options
+      behaviourOptions[name] = options
 
     else
       console.warn 'Configure failed, behaviour not found'

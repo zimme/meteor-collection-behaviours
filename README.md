@@ -5,11 +5,17 @@
 
 Define and attach behaviours on collections.
 
-I used @Sewdn's
-[collection-behaviours](https://github.com/Sewdn/meteor-collection-behaviours)
+I used
+[sewdn:collection-behaviours](https://github.com/Sewdn/meteor-collection-behaviours)
 as inspiration and did a coffeescript rewrite with only the base functionality.
 The different behaviours are separated into their own packages to make it
-easier to find them on [Atmosphere](http://atmospherejs.com) and "meteor search".
+easier to find them on [Atmosphere](http://atmospherejs.com) and `meteor search`.
+
+## Installation
+
+```sh
+meteor add zimme:collection-behaviours
+```
 
 ## Available behaviours
 

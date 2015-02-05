@@ -1,4 +1,4 @@
-# Collection-behaviours
+# Collection behaviours
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/zimme/meteor-collection-behaviours_medium=badge&utm_campaign=pr-badge)
 [![Code Climate](https://img.shields.io/codeclimate/github/zimme/meteor-collection-behaviours.svg?style=flat)](https://codeclimate.com/github/zimme/meteor-collection-behaviours)

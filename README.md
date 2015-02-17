@@ -1,7 +1,9 @@
-# Collection behaviours
+# Behaviours for collections
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/zimme/meteor-collection-behaviours_medium=badge&utm_campaign=pr-badge)
-[![Code Climate](https://img.shields.io/codeclimate/github/zimme/meteor-collection-behaviours.svg?style=flat)](https://codeclimate.com/github/zimme/meteor-collection-behaviours)
+[![Gitter](https://img.shields.io/badge/Gitter-Join_Chat-brightgreen.svg)]
+(https://gitter.im/zimme/meteor-collection-behaviours)
+[![Code Climate](https://img.shields.io/codeclimate/github/zimme/meteor-collection-behaviours.svg)]
+(https://codeclimate.com/github/zimme/meteor-collection-behaviours)
 
 Define and attach behaviours on collections.
 
@@ -11,52 +13,57 @@ as inspiration and made a coffeescript rewrite with the base functionality.
 The different behaviours are separated into their own packages to make it
 easier to find them on [Atmosphere](http://atmospherejs.com) and with `meteor search`.
 
-## Installation
+### Installation
 
 ```sh
 meteor add zimme:collection-behaviours
 ```
 
-## Available behaviours
+### Available behaviours
 
-#### Soft removable
+Soft removable:
+[Atmosphere](https://atmospherejs.com/zimme/collection-softremovable)
+or
+[Github](https://github.com/zimme/meteor-collection-softremovable)
 
-Atmosphere: https://atmospherejs.com/zimme/collection-softremovable  
-Github: https://github.com/zimme/meteor-collection-softremovable
+Timestampable:
+[Atmosphere](https://atmospherejs.com/zimme/collection-timestampable)
+or
+[Github](https://github.com/zimme/meteor-collection-timestampable)
 
-#### Timestampable
+### Usage
 
-Atmosphere: https://atmospherejs.com/zimme/collection-timestampable  
-Github: https://github.com/zimme/meteor-collection-timestampable
-
-## Usage
+#### Define a behaviour
 
 ```js
-// Define a behaviour
 CollectionBehaviours.define('behaviourName', function(options) {
   collection = this.collection;
   defaultOptions = {
-    randomOption: "I'm a default value"
+    exampleOption: "I'm a default value"
   };
   options = _.defaults(options, this.options, defaultOptions);
 
   ... behaviour logic ...
 });
+```
 
-// Configure behaviour globally
+#### Configuration
+
+```js
+// Configure behaviour globally i.e. override defaults
 CollectionBehaviours.configure('behaviourName', {
-  randomOption: "I'm a global value"
+  exampleOption: "I'm a global value"
 });
 
 Users = Meteor.users;
 
-// Attach behaviour with optional options
+// Attach behaviour with optional custom options
 CollectionBehaviours.attach(Users, 'behaviourName', {
-  randomOption: "I'm a local value"
+  exampleOption: "I'm a local value"
 });
 
-// Attach behaviour with optional options
+// Attach behaviour with optional custom options
 Users.attachBehaviour('behaviourName', {
-  randomOption: "I'm a local value"
+  exampleOption: "I'm a local value"
 });
 ```

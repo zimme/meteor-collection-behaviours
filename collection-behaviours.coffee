@@ -1,11 +1,13 @@
 behaviours = {}
 
 share.attach = attach = (behaviour, args...) ->
-  if _.isString behaviour
+  check behaviour, Match.OneOf Function, String
+
+  if Match.test behaviour, String
     options = behaviours[behaviour].options
     behaviour = behaviours[behaviour].behaviour
 
-  if _.isFunction behaviour
+  if Match.test behaviour, Function
     context =
       collection: @
       options: options or {}
@@ -20,12 +22,17 @@ share.attach = attach = (behaviour, args...) ->
 class CollectionBehaviours
 
   @attach: (collections, args...) ->
+    check collections, Match.OneOf Mongo.Collection, [Mongo.Collection]
+
     if Match.test collections, Mongo.Collection
       collections = [collections]
 
     attach.apply collection, args for collection in collections
 
   @configure: (name, options) ->
+    check name, String
+    check options, Object
+
     if name of behaviours
       behaviours[name].options = options
 
@@ -33,6 +40,14 @@ class CollectionBehaviours
       console.warn 'Configure failed, behaviour not found'
 
   @define: (name, behaviour, options) ->
+    check name, String
+    check behaviour, Function
+
+    optionsPattern = Match.ObjectIncluding
+      replace: Boolean
+
+    check options, optionsPattern
+
     if name of behaviours and not options?.replace
       console.warn 'Behaviour already defined, use {replace: true} to override'
 

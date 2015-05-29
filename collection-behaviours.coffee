@@ -19,8 +19,11 @@ share.attach = attach = (behaviour, args...) ->
 
 class CollectionBehaviours
 
-  @attach: (collection, args...) ->
-    attach.apply collection, args
+  @attach: (collections, args...) ->
+    if Match.test collections, Mongo.Collection
+      collections = [collections]
+
+    attach.apply collection, args for collection in collections
 
   @configure: (name, options) ->
     if name of behaviours

@@ -46,7 +46,7 @@ class CollectionBehaviours
     optionsPattern = Match.ObjectIncluding
       replace: Boolean
 
-    check options, optionsPattern
+    check options, Match.Optional optionsPattern
 
     if name of behaviours and not options?.replace
       console.warn 'Behaviour already defined, use {replace: true} to override'

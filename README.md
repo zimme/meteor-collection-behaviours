@@ -1,69 +1,90 @@
+[![Gitter]](https://gitter.im/zimme/meteor-collection-behaviours)
+[![Code Climate]](https://codeclimate.com/github/zimme/meteor-collection-behaviours)
+[![License]](https://github.com/zimme/meteor-collection-timestampable/blob/master/LICENSE.md)
+
 # Behaviours for collections
 
-[![Gitter](https://img.shields.io/badge/gitter-join_chat-brightgreen.svg)]
-(https://gitter.im/zimme/meteor-collection-behaviours)
-[![Code Climate](https://img.shields.io/codeclimate/github/zimme/meteor-collection-behaviours.svg)]
-(https://codeclimate.com/github/zimme/meteor-collection-behaviours)
+Define and attach behaviours to collections.
 
-Define and attach behaviours on collections.
-
-I used
-[sewdn:collection-behaviours](https://github.com/Sewdn/meteor-collection-behaviours)
-as inspiration and made a coffeescript rewrite with the base functionality.
-The different behaviours are separated into their own packages to make it
-easier to find them on [Atmosphere](http://atmospherejs.com) and with `meteor search`.
-
-### Installation
+## Installation
 
 ```sh
 meteor add zimme:collection-behaviours
 ```
 
-### Available behaviours
+## Available behaviours
 
-Soft removable:
-[Atmosphere](https://atmospherejs.com/zimme/collection-softremovable)
-or
-[Github](https://github.com/zimme/meteor-collection-softremovable)
 
-Timestampable:
-[Atmosphere](https://atmospherejs.com/zimme/collection-timestampable)
-or
-[Github](https://github.com/zimme/meteor-collection-timestampable)
+#### [Softremove]
 
-### Usage
+This behaviour adds `.softRemove()` and `.restore()` to collections, which make
+it possible to mark documents as removed. It also tracks the time and user for
+the last soft remove and restore.
 
-#### Define a behaviour
+#### [Timestamp]
+
+This behaviour timestamps documents on insert and update. It also tracks the
+user who made the last insert or update.
+
+## Usage
+
+### Define a behaviour
 
 ```js
 CollectionBehaviours.define('behaviourName', function(options) {
-  collection = this.collection;
-  defaultOptions = {
+  var collection = this.collection;
+
+  // Setup some default options for the behaviour
+  var defaultOptions = {
     exampleOption: "I'm a default value"
   };
+
+  // Make the behaviour configurable both globally and locally and uses the
+  // defaults if not configured.
   options = _.defaults(options, this.options, defaultOptions);
 
-  ... behaviour logic ...
+  // Behaviour logic goes here
 });
 ```
 
-#### Configuration
+### Attach behaviours
 
 ```js
-// Configure behaviour globally i.e. override defaults
+// Attach behavours using the collection identifier
+Meteor.users.attachBehaviour('timestampable');
+
+// Attach behaviours using CollectionBehaviours
+CollectionBehaviours.attach(Meteor.users, 'timestampable');
+```
+
+### Configuration
+
+```js
+// Configure behaviour globally i.e. set you own defaults
 CollectionBehaviours.configure('behaviourName', {
   exampleOption: "I'm a global value"
 });
 
-Users = Meteor.users;
-
-// Attach behaviour with optional custom options
-CollectionBehaviours.attach(Users, 'behaviourName', {
+// Attach behaviour with custom options
+Meteor.users.attachBehaviour('behaviourName', {
   exampleOption: "I'm a local value"
 });
 
-// Attach behaviour with optional custom options
-Users.attachBehaviour('behaviourName', {
+// Attach behaviour with custom options, using CollectionBehaviours
+CollectionBehaviours.attach(Meteor.users, 'behaviourName', {
   exampleOption: "I'm a local value"
 });
 ```
+
+## Notes
+
+* The inspiration for this package came from
+[`sewdn:collection-behaviours`][sewdn]
+
+[Atmosphere]: https://atmospherejs.com
+[Code Climate]: https://img.shields.io/codeclimate/github/zimme/meteor-collection-behaviours.svg
+[Gitter]: https://img.shields.io/badge/gitter-join_chat-brightgreen.svg
+[License]: https://img.shields.io/badge/license-MIT-blue.svg
+[sewdn]: https://github.com/Sewdn/meteor-collection-behaviours
+[Softremove]: https://atmospherejs.com/zimme/collection-softremovable
+[Timestamp]: https://atmospherejs.com/zimme/collection-timestampable

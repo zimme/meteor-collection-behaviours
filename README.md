@@ -14,17 +14,23 @@ meteor add zimme:collection-behaviours
 
 ## Available behaviours
 
+The behaviours are split into separate packages, which depend on this package.
 
-#### [Softremove]
+* `zimme:collection-softremovable`
 
-This behaviour adds `.softRemove()` and `.restore()` to collections, which make
-it possible to mark documents as removed. It also tracks the time and user for
-the last soft remove and restore.
+  This behaviour adds `.softRemove()` and `.restore()` to collections, which
+  make it possible to mark documents as removed. It also tracks the time and
+  user for the last soft remove and restore.
 
-#### [Timestamp]
+  https://atmospherejs.com/zimme/collection-softremovable
 
-This behaviour timestamps documents on insert and update. It also tracks the
-user who made the last insert or update.
+
+* `zimme:collection-timestampable`
+
+  This behaviour timestamps documents on insert and update. It also tracks the
+  user who made the last insert or update.
+
+  https://atmospherejs.com/zimme/collection-timestampable
 
 ## Usage
 
@@ -76,8 +82,67 @@ CollectionBehaviours.attach(Meteor.users, 'behaviourName', {
 });
 ```
 
+## API
+
+### CollectionBehaviours.define
+
+Used to defined a new behaviour or overwrite an already defined behaviour.
+
+```js
+CollectionBehaviours.define('behaviourName', behaviourFunciton, options);
+```
+
+* `'behaviourName'`: Required. The name of the behaviour.
+* `behaviourFunction`: Required. A `Function` that takes `options` as an
+  argument. This function is the behaviour.
+* `options`: Optional. `Object` with the options for the behaviour.
+
+#### Options
+
+* `replace`: Optional. Set to `true` to replace a previously defined behaviour.
+
+### CollectionBehaviours.configure
+
+Used to confgure behaviours globally.
+
+```js
+ColectionBehaviours.configure('behavioursName', options);
+```
+
+* `'behaviourName'`: Required. The name of the behaviour you want to configure.
+* `options`: `Required`. See specific behaviour for available options.
+
+### &lt;CollectionIdentifier&gt;.attachBehaviour
+
+Used to attach a behaviour to the collection.
+
+```js
+Meteor.users.attachBehaviour(behaviourNameOrFunction, options);
+```
+
+* `behaviourNameOrFunction`: Required.  
+  If set to a `String`, `'behaviourName'`, will attach the named behaviour.  
+  If set to a `Function`, will attach that function as an anonymous behaviour.
+* `options`: Optional. See specific behaviour for available options.
+
+### CollectionBehaviours.attach
+
+Used to attach a behaviour to a collection.
+
+```js
+CollectionBehaviours.attach(ColletionIdentifier, behaviourNameOrFunction, options);
+```
+
+* `CollectionIdentifier`: Required. The collection you want to attach the
+  behaviour to.
+* `behaviourNameOrFunction`: Required.  
+  If set to a `String`, `'behaviourName'`, will attach the named behaviour.  
+  If set to a `Function`, will attach that function as an anonymous behaviour.
+* `options`: Optional. See specific behaviour for available options.
+
 ## Notes
 
+* `CollectionBehaviours.config` is an alias for `CollectionBehaviours.configure`
 * The inspiration for this package came from
 [`sewdn:collection-behaviours`][sewdn]
 
@@ -86,5 +151,3 @@ CollectionBehaviours.attach(Meteor.users, 'behaviourName', {
 [Gitter]: https://img.shields.io/badge/gitter-join_chat-brightgreen.svg
 [License]: https://img.shields.io/badge/license-MIT-blue.svg
 [sewdn]: https://github.com/Sewdn/meteor-collection-behaviours
-[Softremove]: https://atmospherejs.com/zimme/collection-softremovable
-[Timestamp]: https://atmospherejs.com/zimme/collection-timestampable

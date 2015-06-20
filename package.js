@@ -15,8 +15,8 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
-    'collection-behaviours.coffee',
-    'mongo.coffee'
+    'lib/collection-behaviours.coffee',
+    'lib/mongo.coffee'
   ]);
 
   api.export('CollectionBehaviours');

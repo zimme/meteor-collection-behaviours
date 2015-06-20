@@ -29,6 +29,9 @@ class CollectionBehaviours
 
     attach.apply collection, args for collection in collections
 
+  @config: ->
+    @configure.apply @, arguments
+
   @configure: (name, options) ->
     check name, String
     check options, Object

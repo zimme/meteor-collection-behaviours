@@ -19,9 +19,9 @@ share.attach = attach = (behaviour, args...) ->
 
   return
 
-class CollectionBehaviours
+CollectionBehaviours =
 
-  @attach: (collections, args...) ->
+  attach: (collections, args...) ->
     check collections, Match.OneOf Mongo.Collection, [Mongo.Collection]
 
     if Match.test collections, Mongo.Collection
@@ -29,10 +29,10 @@ class CollectionBehaviours
 
     attach.apply collection, args for collection in collections
 
-  @config: ->
+  config: ->
     @configure.apply @, arguments
 
-  @configure: (name, options) ->
+  configure: (name, options) ->
     check name, String
     check options, Object
 
@@ -42,7 +42,7 @@ class CollectionBehaviours
     else
       console.warn 'Configure failed, behaviour not found'
 
-  @define: (name, behaviour, options) ->
+  define: (name, behaviour, options) ->
     check name, String
     check behaviour, Function
 

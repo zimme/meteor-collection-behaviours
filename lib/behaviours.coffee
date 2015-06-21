@@ -4,8 +4,8 @@ share.attach = attach = (behaviour, args...) ->
   check behaviour, Match.OneOf Function, String
 
   if Match.test behaviour, String
-    options = behaviours[behaviour].options
-    behaviour = behaviours[behaviour].behaviour
+    options = behaviours[behaviour]?.options
+    behaviour = behaviours[behaviour]?.behaviour
 
   if Match.test behaviour, Function
     context =

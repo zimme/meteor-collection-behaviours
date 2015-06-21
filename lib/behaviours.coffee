@@ -29,6 +29,8 @@ CollectionBehaviours =
 
     attach.apply collection, args for collection in collections
 
+    return
+
   config: ->
     @configure.apply @, arguments
 

@@ -2,7 +2,7 @@ Package.describe({
   git: 'https://github.com/zimme/meteor-collection-behaviours.git',
   name: 'zimme:collection-behaviours',
   summary: 'Define and attach behaviours to collections',
-  version: '1.0.5-rc.2'
+  version: '1.1.0-rc.1'
 });
 
 Package.onUse(function(api) {

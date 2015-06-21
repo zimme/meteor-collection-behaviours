@@ -16,7 +16,7 @@ share.attach = attach = (behaviour, args...) ->
     behaviour.apply context, args
 
   else
-    console.warn 'Behaviour not found'
+    console.warn "Attach failed, behaviour \"#{behaviour}\" not found"
 
   return
 
@@ -45,7 +45,7 @@ CollectionBehaviours =
       behaviours[name].options = options
 
     else
-      console.warn 'Configure failed, behaviour not found'
+      console.warn "Configure failed, behaviour \"#{name}\" not found"
 
   define: (name, behaviour, options) ->
     check name, String

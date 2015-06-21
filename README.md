@@ -114,7 +114,7 @@ ColectionBehaviours.configure('behavioursName', options);
 
 ### &lt;CollectionIdentifier&gt;.attachBehaviour
 
-Used to attach a behaviour to the collection.
+Used to attach behaviour(s) to the collection.
 
 ```js
 Meteor.users.attachBehaviour(behaviourNameOrFunction, options);
@@ -122,22 +122,32 @@ Meteor.users.attachBehaviour(behaviourNameOrFunction, options);
 
 * `behaviourNameOrFunction`: Required.  
   If set to a `String`, `'behaviourName'`, will attach the named behaviour.  
-  If set to a `Function`, will attach that function as an anonymous behaviour.
+  If set to a `Function`, will attach that function as an anonymous behaviour.  
+  If set to an `Array` of `String`/`Function`, will attach those named or  
+  anonymous behaviours.  
+  If set to an `Object`, where the keys are named behaviours and the values are  
+  the behaviours' options, will attach those named behaviours with the provided  
+  options.
 * `options`: Optional. See specific behaviour for available options.
 
 ### CollectionBehaviours.attach
 
-Used to attach a behaviour to a collection.
+Used to attach behaviour(s) to collection(s).
 
 ```js
 CollectionBehaviours.attach(ColletionIdentifier, behaviourNameOrFunction, options);
 ```
 
-* `CollectionIdentifier`: Required. The collection you want to attach the
-  behaviour to.
+* `CollectionIdentifier`: Required. The collection or `Array` of collections  
+  you want to attach the behaviour(s) to.
 * `behaviourNameOrFunction`: Required.  
   If set to a `String`, `'behaviourName'`, will attach the named behaviour.  
-  If set to a `Function`, will attach that function as an anonymous behaviour.
+  If set to a `Function`, will attach that function as an anonymous behaviour.  
+  If set to an `Array` of `String`/`Function`, will attach those named or  
+  anonymous behaviours.  
+  If set to an `Object`, where the keys are named behaviours and the values are  
+  the behaviours' options, will attach those named behaviours with the provided  
+  options.
 * `options`: Optional. See specific behaviour for available options.
 
 ## Notes

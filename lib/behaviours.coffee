@@ -4,6 +4,7 @@ share.attach = attach = (behaviour, args...) ->
   check behaviour, Match.OneOf Function, String
 
   if Match.test behaviour, String
+    behaviour = behaviour.toLowerCase()
     options = behaviours[behaviour]?.options
     behaviour = behaviours[behaviour]?.behaviour
 
@@ -38,6 +39,8 @@ CollectionBehaviours =
     check name, String
     check options, Object
 
+    name = name.toLowerCase()
+
     if name of behaviours
       behaviours[name].options = options
 
@@ -52,6 +55,8 @@ CollectionBehaviours =
       replace: Boolean
 
     check options, Match.Optional optionsPattern
+
+    name = name.toLowerCase()
 
     if name of behaviours and not options?.replace
       console.warn 'Behaviour already defined, use {replace: true} to override'

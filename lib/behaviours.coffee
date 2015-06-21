@@ -1,24 +1,109 @@
-behaviours = {}
+definedBehaviours = {}
 
-share.attach = attach = (behaviour, args...) ->
-  check behaviour, Match.OneOf Function, String
+messages =
+  attachAborted: (name, collectionName) ->
+    "Attach aborted, behaviour \"#{name}\" already attached to" +
+    " #{collectionName} collection"
+  attachFailed: (name) ->
+    "Attach failed, behaviour \"#{name}\" not found"
 
-  if Match.test behaviour, String
-    behaviour = behaviour.toLowerCase()
-    options = behaviours[behaviour]?.options
-    behaviour = behaviours[behaviour]?.behaviour
+share.attach = attach = (behaviours, options...) ->
+  check behaviours, Match.OneOf Function, [Match.OneOf Function, String], Object
+  , String
 
-  if Match.test behaviour, Function
+  if Match.test behaviours, String
+    name = behaviours.toLowerCase()
+    behaviourObject = definedBehaviours[name]
+
+    unless behaviourObject
+      console.error messages.attachFailed name
+      return
+
+    behaviourObject.collections ?= []
+
+    if @_name in behaviourObject.collections
+      console.warn messages.attachAborted name, @_name
+      return
+
+    behaviours = behaviourObject.behaviour
+
+  if Match.test behaviours, Function
     context =
       collection: @
-      options: options or {}
+      options: behaviourObject?.options or {}
 
-    behaviour.apply context, args
+    behaviours.apply context, options
 
-  else
-    console.error "Attach failed, behaviour \"#{behaviour}\" not found"
+    behaviourObject?.collections ?= []
+    behaviourObject?.collections.push @_name
 
-  return
+    return
+
+  if Match.test behaviours, [Match.OneOf Function, String]
+    context =
+      collection: @
+      options: {}
+
+    for behaviour in behaviours
+      if Match.test behaviour, String
+        name = behaviour.toLowerCase()
+        behaviourObject = definedBehaviours[name]
+
+        unless behaviourObject
+          console.error messages.attachFailed name
+          continue
+
+        behaviourObject.collections ?= []
+
+        if @_name in behaviourObject.collections
+          console.warn messages.attachAborted name, @_name
+          continue
+
+        behaviour = behaviourObject.behaviour
+
+      if Match.test behaviour, Function
+        behaviour.apply context, {}
+
+        behaviourObject?.collections ?= []
+        behaviourObject?.collections.push @_name
+
+    return
+
+  if Match.test behaviours, Object
+    for name, options of behaviours
+      check name, String
+
+      name = name.toLowerCase()
+
+      behaviourObject = definedBehaviours[name]
+
+      unless behaviourObject
+        console.error messages.attachFailed name
+        continue
+
+      behaviourObject.collections ?= []
+
+      if @_name in behaviourObject.collections
+        console.warn messages.attachAborted name, @_name
+        continue
+
+      behaviour = behaviourObject.behaviour
+
+      context =
+        collection: @
+        options: behaviourObject.options or {}
+
+      if Match.test behaviour, Function
+        behaviour.call context, options
+
+        behaviourObject.collections.push @_name
+
+      else
+        console.error messages.attachFailed name
+
+    return
+
+  console.error "Attach failed, unknown reason"
 
 CollectionBehaviours =
 
@@ -41,8 +126,10 @@ CollectionBehaviours =
 
     name = name.toLowerCase()
 
-    if name of behaviours
-      behaviours[name].options = options
+    behaviourObject = definedBehaviours[name]
+
+    if behaviourObject
+      behaviourObject.options = options
 
     else
       console.error "Configure failed, behaviour \"#{name}\" not found"
@@ -58,9 +145,10 @@ CollectionBehaviours =
 
     name = name.toLowerCase()
 
-    if name of behaviours and not options?.replace
+    behaviourObject = definedBehaviours[name]
+
+    if behaviourObject and not options?.replace
       console.warn 'Behaviour already defined, use {replace: true} to override'
 
     else
-      behaviours[name] =
-        behaviour: behaviour
+      definedBehaviours[name] = behaviour: behaviour

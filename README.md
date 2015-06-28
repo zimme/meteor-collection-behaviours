@@ -56,11 +56,33 @@ CollectionBehaviours.define('behaviourName', function(options) {
 ### Attach behaviours
 
 ```js
-// Attach behavours using the collection identifier
+// Attach a behavour using the collection identifier
 Meteor.users.attachBehaviour('timestampable');
 
-// Attach behaviours using CollectionBehaviours
+// Attach a behaviour to a colleciton using CollectionBehaviours
 CollectionBehaviours.attach(Meteor.users, 'timestampable');
+
+// Attach multiple behaviours to a collection with default options
+CollectionBehaviours.attach(Meteor.users, ['timestampable', 'softremovable']);
+
+// Attach multiple behaviours to a collcetion with custom options
+CollectionBehaviours.attach(Meteor.users, {
+  timestampable: {
+    createdAt: 'insertedAt',
+  },
+  softremovable: {
+    removedBy: 'deletedBy',
+  },
+});
+
+// Attach a behaviour to multiple collections
+CollectionBehaviours.attach([Meteor.users, Posts], 'timestampable');
+
+// Attach multiple behaviours to multiple collections
+CollectionBehaviours.attach(
+  [Meteor.users, Posts],
+  ['timestampable', 'softremovable']
+);
 ```
 
 ### Configuration

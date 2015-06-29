@@ -128,11 +128,28 @@ CollectionBehaviours.define('behaviourName', behaviourFunciton, options);
 Used to confgure behaviours globally.
 
 ```js
+// Configure single behaviour
 ColectionBehaviours.configure('behavioursName', options);
+
+// Configure multiple behaviours
+CollectionBehaviours.configure({
+  timestampable: {
+    createdAt: 'insertedAt',
+    updatedBy: 'modifiedBy'
+  },
+  softremovable: {
+    removed: 'deleted'
+  }
+});
 ```
 
-* `'behaviourName'`: Required. The name of the behaviour you want to configure.
-* `options`: `Required`. See specific behaviour for available options.
+* `'behaviourName'`: Required.  
+  If set to a `String`, 'behaviourName', will configure the named behaviour.  
+  If set to an `Object`, where the keys are named behaviours and the values are  
+  the options for the behaviours, will configure those named behaviours.
+
+* `options`: Optional if `behaviourName` is an `Object`.  
+  See specific behaviour for available options.
 
 ### &lt;CollectionIdentifier&gt;.attachBehaviour
 

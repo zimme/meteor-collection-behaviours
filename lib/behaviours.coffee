@@ -123,19 +123,31 @@ CollectionBehaviours =
   config: ->
     @configure.apply @, arguments
 
-  configure: (name, options) ->
-    check name, String
-    check options, Object
+  configure: (nameOrObject, options) ->
+    check nameOrObject, Object, String
+    check options, Match.Optional Object
 
-    name = name.toLowerCase()
+    if Match.test nameOrObject, String
+      check options, Object
+      tmp = {}
+      tmp[nameOrObject] = options
+      nameOrObject = tmp
 
-    behaviourObject = definedBehaviours[name]
+    if Match.test nameOrObject, Object
+      for name, behaviourOptions of nameOrObject
+        name = name.toLowerCase()
 
-    if behaviourObject
-      behaviourObject.options = options
+        behaviourObject = definedBehaviours[name]
 
-    else
-      console.error "Configure failed, behaviour \"#{name}\" not found"
+        if behaviourObject
+          behaviourObject.options = behaviourOptions
+
+        else
+          console.error "Configure failed, behaviour \"#{name}\" not found"
+
+      return
+
+    console.log "Configure failed, unknown reason"
 
   define: (name, behaviour, options) ->
     check name, String

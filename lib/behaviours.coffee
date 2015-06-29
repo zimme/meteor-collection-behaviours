@@ -42,7 +42,6 @@ share.attach = attach = (behaviours, options...) ->
   if Match.test behaviours, [Match.OneOf Function, String]
     context =
       collection: @
-      options: {}
 
     for behaviour in behaviours
       if Match.test behaviour, String
@@ -61,7 +60,11 @@ share.attach = attach = (behaviours, options...) ->
 
         behaviour = behaviourObject.behaviour
 
+        context.options = behaviourObject.options
+
       if Match.test behaviour, Function
+        context.options ?= {}
+
         behaviour.apply context, {}
 
         behaviourObject?.collections ?= []

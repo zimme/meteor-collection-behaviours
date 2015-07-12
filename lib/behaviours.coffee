@@ -124,7 +124,7 @@ CollectionBehaviours =
     @configure.apply @, arguments
 
   configure: (nameOrObject, options) ->
-    check nameOrObject, Object, String
+    check nameOrObject, Match.OneOf Object, String
     check options, Match.Optional Object
 
     if Match.test nameOrObject, String

@@ -112,9 +112,14 @@ CollectionBehaviours =
 
   attach: (collections, args...) ->
     check collections, Match.OneOf Mongo.Collection, [Mongo.Collection]
+    objectOrString = Match.OneOf Object, String
+    check args[0], Match.OneOf objectOrString, [objectOrString]
 
     if Match.test collections, Mongo.Collection
       collections = [collections]
+
+    if Match.test args[0], Match.OneOf Array, Object
+      args = args.slice 0, 1
 
     attach.apply collection, args for collection in collections
 

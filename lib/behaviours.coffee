@@ -65,7 +65,7 @@ share.attach = attach = (behaviours, options...) ->
       if Match.test behaviour, Function
         context.options ?= {}
 
-        behaviour.apply context, {}
+        behaviour.call context, {}
 
         behaviourObject?.collections ?= []
         behaviourObject?.collections.push @_name

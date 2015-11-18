@@ -10,13 +10,10 @@ Package.onUse(function(api) {
 
   api.use([
     'check',
-    'coffeescript',
     'mongo'
   ]);
 
   api.addFiles([
-    'lib/behaviours.coffee',
-    'lib/mongo.coffee'
   ]);
 
   api.export('CollectionBehaviours');

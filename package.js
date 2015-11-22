@@ -11,6 +11,7 @@ Package.onUse(function(api) {
   api.use([
     'check',
     'mongo'
+    'ecmascript',
   ]);
 
   api.addFiles([

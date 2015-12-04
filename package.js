@@ -15,7 +15,20 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
+Package.onTest(function(api) {
+  api.versionsFrom('1.2');
+
+  api.use([
+    'check',
+    'collectionbehaviours:core',
+    'ecmascript',
+    'mongo',
+    'practicalmeteor:mocha@2.1.0_5',
+    'random'
   ]);
 
   api.export('CollectionBehaviours');
+  api.addFiles([
+    'tests/collectionbehaviour.js',
+  ]);
 });

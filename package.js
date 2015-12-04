@@ -15,6 +15,10 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
+  api.export([
+    'CollectionBehaviour',
+    'CollectionBehaviours',
+  ]);
 Package.onTest(function(api) {
   api.versionsFrom('1.2');
 
@@ -27,7 +31,6 @@ Package.onTest(function(api) {
     'random'
   ]);
 
-  api.export('CollectionBehaviours');
   api.addFiles([
     'tests/collectionbehaviour.js',
   ]);

@@ -10,8 +10,8 @@ Package.onUse(function(api) {
 
   api.use([
     'check',
-    'mongo'
     'ecmascript',
+    'mongo',
   ]);
 
   api.addFiles([

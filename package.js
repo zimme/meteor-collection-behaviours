@@ -15,10 +15,23 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
+    'lib/utilities.js',
+    'lib/collectionbehaviour.js',
+    'lib/collectionbehaviours.js',
+    'lib/mongo.js',
+  ], [
+    'client',
+    'server',
+  ], {
+    bare: true,
+  });
+
   api.export([
     'CollectionBehaviour',
     'CollectionBehaviours',
   ]);
+});
+
 Package.onTest(function(api) {
   api.versionsFrom('1.2');
 

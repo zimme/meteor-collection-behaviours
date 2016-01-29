@@ -4,31 +4,30 @@
 
 # Behaviours for collections
 
-Define and attach behaviours to collections.
+Create, define, attach and detach behaviours to collections.
 
 ## Installation
 
 ```sh
-meteor add zimme:collection-behaviours
+meteor add collectionbehaviours:core
 ```
 
 ## Available behaviours
 
-The behaviours are split into separate packages, which depend on this package.
+* `collectionbehaviours:softremove`
 
-* `zimme:collection-softremovable`
-
-  This behaviour adds `.softRemove()` and `.restore()` to collections, which
-  make it possible to mark documents as removed. It also tracks the time and
-  user for the last soft remove and restore.
+  This behaviour makes `.remove()` mark a document as remove. Access to the
+  regular remove functionality is available as `.hardRemove()`. It also tracks
+  the time and user for the last soft remove and restore.
 
   https://atmospherejs.com/zimme/collection-softremovable
 
 
-* `zimme:collection-timestampable`
+* `collectionbehaviours:timestamp`
 
-  This behaviour timestamps documents on insert and update. It also tracks the
-  user who made the last insert or update.
+  This behaviour adds timestamps to documents on insert, update and remove, if
+  `collectionbehaviours:softremove` is installed. It also tracks the user who
+  made the last insert, update or remove.
 
   https://atmospherejs.com/zimme/collection-timestampable
 

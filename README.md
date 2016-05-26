@@ -32,6 +32,22 @@ The behaviours are split into separate packages, which depend on this package.
 
   https://atmospherejs.com/zimme/collection-timestampable
 
+
+* `nicooprat:collection-slug`
+
+  This behaviour creates a new field and bind its value from another. The value
+  created is a url-friendly string.
+
+  https://atmospherejs.com/nicooprat/collection-slug
+
+
+* `nicooprat:collection-counter`
+
+  This behaviour add counters to collections. Indicate which fields you need to watch, 
+  and it automatically updates the corresponding specified field count.
+
+  https://atmospherejs.com/nicooprat/collection-counter
+
 ## Usage
 
 ### Define a behaviour
